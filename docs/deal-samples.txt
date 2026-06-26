@@ -1,0 +1,356 @@
+﻿=== SAMPLE DEALS (preview) ===
+
+--- Deal 78521 ---
+{
+  tenant_id: 4,
+  vin: '1GKKNXLS6KZ239412',
+  deal_number: '52986',
+  deal_date: 2026-06-09T05:00:00.000Z,
+  customer_number: '1148774'
+}
+Top-level keys: [
+  'CompanyNumber',      'DealNumber',
+  'Status',             'DealDate',
+  'VIN',                'StockNumber',
+  'PrimarySalesperson', 'SecondarySalesperson',
+  'VehicleType',        'Make',
+  'Model',              'ModelYear',
+  'BodyStyle',          'BuyerCustomerNumber',
+  'BuyerCustomerId',    'BuyerCustomerVersion',
+  'BuyerLastName',      'BuyerFirstName',
+  'BuyerMiddleName',    'CoBuyerCustomerNumber',
+  'CoBuyerCustomerId',  'CoBuyerCustomerVersion',
+  'CoBuyerLastName',    'CoBuyerFirstName',
+  'CoBuyerMiddleName',  'RecordType'
+]
+{
+  "CompanyNumber": "LH1",
+  "DealNumber": "52986",
+  "Status": "A",
+  "DealDate": "20260609",
+  "VIN": "1GKKNXLS6KZ239412",
+  "StockNumber": "HP5268A",
+  "PrimarySalesperson": "527",
+  "SecondarySalesperson": [],
+  "VehicleType": "U",
+  "Make": "GMC",
+  "Model": "ACADIA",
+  "ModelYear": "2019",
+  "BodyStyle": "SUV",
+  "BuyerCustomerNumber": "1148774",
+  "BuyerCustomerId": "310200029116284693",
+  "BuyerCustomerVersion": "0",
+  "BuyerLastName": "WHITE",
+  "BuyerFirstName": "TATUM",
+  "BuyerMiddleName": "N",
+  "CoBuyerCustomerNumber": "0",
+  "CoBuyerCustomerId": "0",
+  "CoBuyerCustomerVersion": "0",
+  "CoBuyerLastName": [],
+  "CoBuyerFirstName": [],
+  "CoBuyerMiddleName": [],
+  "RecordType": "F"
+}
+
+--- Deal 78522 ---
+{
+  tenant_id: 4,
+  vin: '5FPYK3F88TB035054',
+  deal_number: '52987',
+  deal_date: 2026-06-09T05:00:00.000Z,
+  customer_number: '980'
+}
+Top-level keys: [
+  'CompanyNumber',      'DealNumber',
+  'Status',             'DealDate',
+  'VIN',                'StockNumber',
+  'PrimarySalesperson', 'SecondarySalesperson',
+  'VehicleType',        'Make',
+  'Model',              'ModelYear',
+  'BodyStyle',          'BuyerCustomerNumber',
+  'BuyerCustomerId',    'BuyerCustomerVersion',
+  'BuyerLastName',      'BuyerFirstName',
+  'BuyerMiddleName',    'CoBuyerCustomerNumber',
+  'CoBuyerCustomerId',  'CoBuyerCustomerVersion',
+  'CoBuyerLastName',    'CoBuyerFirstName',
+  'CoBuyerMiddleName',  'RecordType'
+]
+{
+  "CompanyNumber": "LH1",
+  "DealNumber": "52987",
+  "Status": "U",
+  "DealDate": "20260609",
+  "VIN": "5FPYK3F88TB035054",
+  "StockNumber": "H261003",
+  "PrimarySalesperson": [],
+  "SecondarySalesperson": [],
+  "VehicleType": "N",
+  "Make": "HONDA",
+  "Model": "RIDGELINE",
+  "ModelYear": "2026",
+  "BodyStyle": "BLACK EDITION AWD",
+  "BuyerCustomerNumber": "980",
+  "BuyerCustomerId": "220000000017292924",
+  "BuyerCustomerVersion": "0",
+  "BuyerLastName": "SHARP HONDA",
+  "BuyerFirstName": [],
+  "BuyerMiddleName": [],
+  "CoBuyerCustomerNumber": "0",
+  "CoBuyerCustomerId": "0",
+  "CoBuyerCustomerVersion": "0",
+  "CoBuyerLastName": [],
+  "CoBuyerFirstName": [],
+  "CoBuyerMiddleName": [],
+  "RecordType": "C"
+}
+
+--- Deal 78523 ---
+{
+  tenant_id: 5,
+  vin: '5TDDZRBH7LS020620',
+  deal_number: '36842',
+  deal_date: 2026-06-09T05:00:00.000Z,
+  customer_number: '1102627'
+}
+Top-level keys: [
+  'CompanyNumber',      'DealNumber',
+  'Status',             'DealDate',
+  'VIN',                'StockNumber',
+  'PrimarySalesperson', 'SecondarySalesperson',
+  'VehicleType',        'Make',
+  'Model',              'ModelYear',
+  'BodyStyle',          'BuyerCustomerNumber',
+  'BuyerCustomerId',    'BuyerCustomerVersion',
+  'BuyerLastName',      'BuyerFirstName',
+  'BuyerMiddleName',    'CoBuyerCustomerNumber',
+  'CoBuyerCustomerId',  'CoBuyerCustomerVersion',
+  'CoBuyerLastName',    'CoBuyerFirstName',
+  'CoBuyerMiddleName',  'RecordType'
+]
+{
+  "CompanyNumber": "LH2",
+  "DealNumber": "36842",
+  "Status": [],
+  "DealDate": "20260609",
+  "VIN": "5TDDZRBH7LS020620",
+  "StockNumber": "S26549A",
+  "PrimarySalesperson": "461",
+  "SecondarySalesperson": [],
+  "VehicleType": "U",
+  "Make": "TOYOTA",
+  "Model": "HIGHLANDER",
+  "ModelYear": "2020",
+  "BodyStyle": "SUV",
+  "BuyerCustomerNumber": "1102627",
+  "BuyerCustomerId": "220000000111164735",
+  "BuyerCustomerVersion": "0",
+  "BuyerLastName": "HUITT",
+  "BuyerFirstName": "NICHOLAS",
+  "BuyerMiddleName": [],
+  "CoBuyerCustomerNumber": "1102628",
+  "CoBuyerCustomerId": "220000000111164741",
+  "CoBuyerCustomerVersion": "0",
+  "CoBuyerLastName": "HUITT",
+  "CoBuyerFirstName": "CHANTALE",
+  "CoBuyerMiddleName": [],
+  "RecordType": "F"
+}
+
+--- Deal 78524 ---
+{
+  tenant_id: 5,
+  vin: 'JF2SLDDCXSH574686',
+  deal_number: '36843',
+  deal_date: 2026-06-09T05:00:00.000Z,
+  customer_number: '1102634'
+}
+Top-level keys: [
+  'CompanyNumber',      'DealNumber',
+  'Status',             'DealDate',
+  'VIN',                'StockNumber',
+  'PrimarySalesperson', 'SecondarySalesperson',
+  'VehicleType',        'Make',
+  'Model',              'ModelYear',
+  'BodyStyle',          'BuyerCustomerNumber',
+  'BuyerCustomerId',    'BuyerCustomerVersion',
+  'BuyerLastName',      'BuyerFirstName',
+  'BuyerMiddleName',    'CoBuyerCustomerNumber',
+  'CoBuyerCustomerId',  'CoBuyerCustomerVersion',
+  'CoBuyerLastName',    'CoBuyerFirstName',
+  'CoBuyerMiddleName',  'RecordType'
+]
+{
+  "CompanyNumber": "LH2",
+  "DealNumber": "36843",
+  "Status": "A",
+  "DealDate": "20260609",
+  "VIN": "JF2SLDDCXSH574686",
+  "StockNumber": "SP8831",
+  "PrimarySalesperson": "523",
+  "SecondarySalesperson": [],
+  "VehicleType": "U",
+  "Make": "SUBARU",
+  "Model": "FORESTER",
+  "ModelYear": "2025",
+  "BodyStyle": "PREMIUM AWD",
+  "BuyerCustomerNumber": "1102634",
+  "BuyerCustomerId": "310200029119233992",
+  "BuyerCustomerVersion": "0",
+  "BuyerLastName": "GIANOTTI",
+  "BuyerFirstName": "LYNSY",
+  "BuyerMiddleName": "E",
+  "CoBuyerCustomerNumber": "0",
+  "CoBuyerCustomerId": "0",
+  "CoBuyerCustomerVersion": "0",
+  "CoBuyerLastName": [],
+  "CoBuyerFirstName": [],
+  "CoBuyerMiddleName": [],
+  "RecordType": "F"
+}
+
+--- Deal 78502 ---
+{
+  tenant_id: 4,
+  vin: '3VV2B7AX5NM159142',
+  deal_number: '52971',
+  deal_date: 2026-06-08T05:00:00.000Z,
+  customer_number: '1148730'
+}
+Top-level keys: [
+  'CompanyNumber',      'DealNumber',
+  'Status',             'DealDate',
+  'VIN',                'StockNumber',
+  'PrimarySalesperson', 'SecondarySalesperson',
+  'VehicleType',        'Make',
+  'Model',              'ModelYear',
+  'BodyStyle',          'BuyerCustomerNumber',
+  'BuyerCustomerId',    'BuyerCustomerVersion',
+  'BuyerLastName',      'BuyerFirstName',
+  'BuyerMiddleName',    'CoBuyerCustomerNumber',
+  'CoBuyerCustomerId',  'CoBuyerCustomerVersion',
+  'CoBuyerLastName',    'CoBuyerFirstName',
+  'CoBuyerMiddleName',  'RecordType'
+]
+{
+  "CompanyNumber": "LH1",
+  "DealNumber": "52971",
+  "Status": "A",
+  "DealDate": "20260608",
+  "VIN": "3VV2B7AX5NM159142",
+  "StockNumber": "HP5370",
+  "PrimarySalesperson": "069",
+  "SecondarySalesperson": [],
+  "VehicleType": "U",
+  "Make": "VOLKSWAGEN",
+  "Model": "TIGUAN",
+  "ModelYear": "2022",
+  "BodyStyle": "SUV",
+  "BuyerCustomerNumber": "1148730",
+  "BuyerCustomerId": "220000000111145749",
+  "BuyerCustomerVersion": "0",
+  "BuyerLastName": "VERHEIN",
+  "BuyerFirstName": "TOD",
+  "BuyerMiddleName": [],
+  "CoBuyerCustomerNumber": "0",
+  "CoBuyerCustomerId": "0",
+  "CoBuyerCustomerVersion": "0",
+  "CoBuyerLastName": [],
+  "CoBuyerFirstName": [],
+  "CoBuyerMiddleName": [],
+  "RecordType": "C"
+}
+
+=== STATS ===
+{
+  "stats": {
+    "total_deals": 78524,
+    "tenants": 5,
+    "unique_vins": 77659,
+    "unique_customers": 54690,
+    "earliest": "2016-01-01T06:00:00.000Z",
+    "latest": "2026-06-09T05:00:00.000Z"
+  },
+  "byTenant": [
+    {
+      "name": "Lee Summit Honda",
+      "id": 4,
+      "deal_count": 26040
+    },
+    {
+      "name": "FDD Demo Dealership",
+      "id": 7,
+      "deal_count": 25043
+    },
+    {
+      "name": "Lee Summit Subaru",
+      "id": 5,
+      "deal_count": 22701
+    },
+    {
+      "name": "Smithville Ford",
+      "id": 6,
+      "deal_count": 4738
+    },
+    {
+      "name": "BSF - TESTING",
+      "id": 1,
+      "deal_count": 2
+    }
+  ],
+  "monthly": [
+    {
+      "month": "2026-06",
+      "cnt": 108
+    },
+    {
+      "month": "2026-05",
+      "cnt": 611
+    },
+    {
+      "month": "2026-04",
+      "cnt": 607
+    },
+    {
+      "month": "2026-03",
+      "cnt": 662
+    },
+    {
+      "month": "2026-02",
+      "cnt": 607
+    },
+    {
+      "month": "2026-01",
+      "cnt": 709
+    },
+    {
+      "month": "2025-12",
+      "cnt": 695
+    },
+    {
+      "month": "2025-11",
+      "cnt": 665
+    },
+    {
+      "month": "2025-10",
+      "cnt": 731
+    },
+    {
+      "month": "2025-09",
+      "cnt": 649
+    },
+    {
+      "month": "2025-08",
+      "cnt": 792
+    },
+    {
+      "month": "2025-07",
+      "cnt": 829
+    }
+  ],
+  "interested": [
+    {
+      "is_intrested": 1,
+      "cnt": 78524
+    }
+  ]
+}

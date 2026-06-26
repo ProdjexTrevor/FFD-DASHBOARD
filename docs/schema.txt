@@ -1,0 +1,168 @@
+﻿
+=== account_setup_tokens (0 rows) ===
+email, token, created_at
+
+=== activity_logs (117 rows) ===
+id, log_name, description, subject_type, subject_id, causer_id, properties, created_at, updated_at
+
+=== appointment_details (6280 rows) ===
+id, appointment_id, vin, service_line_number, line_type, sequence_number, trans_date, comments, service_type, line_payment_method, technician_id, labor_op_code, labor_hours, labor_cost_hours, actual_retail_amount, part_number, counter_person_id, stock_group, manufacturer, quantity, cost, list_price, net_price, trade_price, created_at, updated_at
+
+=== appointments (674 rows) ===
+id, tenant_id, customer_id, appointment_number, appointment_id, appointment_date_time, open_transaction_date, service_writer_id, franchise_code, total_estimate, ro_status, customer_key, stock_number, truck, odometer_in, created_at, updated_at
+
+=== cache (1 rows) ===
+key, value, expiration
+
+=== cache_locks (0 rows) ===
+key, owner, expiration
+
+=== campaign_messages (0 rows) ===
+id, tenant_id, campaign_id, channel, subject, body, design, created_at, updated_at
+
+=== campaign_targets (0 rows) ===
+id, campaign_id, customer_id, tenant_id, vehicle_id, email, phone, status, error_message, sent_at, created_at, updated_at
+
+=== campaign_tenant (0 rows) ===
+id, campaign_id, tenant_id, created_at, updated_at
+
+=== campaign_unsubscribers (0 rows) ===
+id, campaign_target_id, campaign_id, customer_id, type, created_at, updated_at
+
+=== campaigns (0 rows) ===
+id, name, type, description, triggers, audience_type, audience_filter, start_date, frequency, number_of_runs, last_run_at, completed_runs, status, created_by, created_at, updated_at
+
+=== century_api_logs (73 rows) ===
+id, endpoint, vin, request_payload, response_payload, http_status, success, created_at, updated_at
+
+=== century_credientials (1 rows) ===
+id, access_token, refresh_token, expires_in, created_at, updated_at
+
+=== century_plans (10 rows) ===
+id, plan_code, plan_name, coverage_level_description, created_at, updated_at
+
+=== communications_log (0 rows) ===
+id, tenant_id, type, reference_id, customer_id, channel, payload, status, error_message, sent_at
+
+=== contact_attempts (0 rows) ===
+id, vehicle_id, customer_id, tenant_id, attempt_date, notes, created_at, updated_at
+
+=== customers (55526 rows) ===
+id, tenant_id, name, email, phone, address, city, state, zip, customer_number, is_updated, is_intrested, created_at, updated_at
+
+=== deal_documents (0 rows) ===
+id, deal_id, file_id, category, created_at, updated_at
+
+=== deals (78524 rows) ===
+id, response, tenant_id, vin, deal_number, deal_date, customer_number, is_intrested, created_at, updated_at
+
+=== discount_codes (0 rows) ===
+id, tenant_id, name, code, type, value, created_at, updated_at
+
+=== failed_jobs (7 rows) ===
+id, uuid, connection, queue, payload, exception, failed_at
+
+=== files (28 rows) ===
+id, uuid, user_id, category, file_name, file_path, original_name, created_at, updated_at
+
+=== hyfin_invoices (0 rows) ===
+id, invoice_number, tenant_id, vehicle_id, payment_link, webhook_response, amount, created_at, updated_at
+
+=== hyfin_payments (1 rows) ===
+id, external_id, type, invoice_number, payment_link, amount, webhook_response, reference_id, tenant_id, vehicle_id, warranty_purchase_id, created_at, updated_at
+
+=== hyfin_subscription_payments (0 rows) ===
+id, subscription_id, customer_id, package_id, payment_date, status, created_at, updated_at
+
+=== hyfin_subscriptions (0 rows) ===
+id, tenant_id, vehicle_id, payment_link, amount, frequency, frequency_units, number_of_payments, created_at, updated_at
+
+=== inspection_details (1 rows) ===
+id, vehicle_id, inspection_date, comments, status, created_at, updated_at
+
+=== job_batches (0 rows) ===
+id, name, total_jobs, pending_jobs, failed_jobs, failed_job_ids, options, cancelled_at, created_at, finished_at
+
+=== jobs (0 rows) ===
+id, queue, payload, attempts, reserved_at, available_at, created_at
+
+=== leads (5 rows) ===
+id, tenant_id, vin, source, name, email, phone, address, city, state, zip, created_at, updated_at
+
+=== migrations (102 rows) ===
+id, migration, batch
+
+=== model_has_permissions (0 rows) ===
+permission_id, model_type, model_id
+
+=== model_has_roles (32 rows) ===
+role_id, model_type, model_id
+
+=== one_off_messages (0 rows) ===
+id, customer_id, tenant_id, vehicle_id, channel, subject, body, status, error_message, created_by, sent_at, created_at, updated_at
+
+=== package_calculations (4566 rows) ===
+id, package_code, package_id, vehicle_id, dealer_profit, ffd_fee, factor, surcharges, add_ons_price, add_ons, base_price, calculated_price, details, created_at, updated_at
+
+=== password_reset_tokens (0 rows) ===
+email, token, ip, created_at
+
+=== payments (0 rows) ===
+id, purchase_id, payment_method, amount, transaction_reference, payment_status, created_at, updated_at
+
+=== permissions (0 rows) ===
+id, name, guard_name, created_at, updated_at
+
+=== pg_invoices (11 rows) ===
+id, payment_id, invoice_number, stripe_invoice_id, stripe_invoice_number, stripe_checkout_session_id, stripe_payment_intent_id, amount_due, amount_paid, status, invoice_pdf, hosted_invoice_url, payment_link, webhook_response, created_at, updated_at
+
+=== pg_orders (13 rows) ===
+id, type, amount, down_payment_amount, stripe_checkout_session_id, stripe_payment_intent_id, stripe_subscription_id, payment_link, status, calculation, webhook_response, tenant_id, vehicle_id, warranty_purchase_id, created_at, updated_at
+
+=== pg_payments (5 rows) ===
+id, order_id, type, stripe_subscription_id, stripe_checkout_session_id, stripe_invoice_id, stripe_payment_intent_id, customer_id, package_id, amount, payment_date, status, created_at, updated_at
+
+=== role_has_permissions (0 rows) ===
+permission_id, role_id
+
+=== roles (4 rows) ===
+id, name, guard_name, created_at, updated_at
+
+=== service_contracts (39658 rows) ===
+id, tenant_id, vin, response, customer_number, created_at, updated_at, vehicle_id, plan_code, service_department_key, service_contract_sequence_number, product_code, starting_odometer, expiration_miles, name, start_date, expiration_date, deductible, miles, active, tax_part_cost, taxable
+
+=== sessions (19 rows) ===
+id, user_id, ip_address, user_agent, payload, last_activity
+
+=== tenant_contact_forms (1 rows) ===
+id, tenant_id, name, email, phone, body, to_email, created_at, updated_at
+
+=== tenant_users (1 rows) ===
+id, user_id, tenant_id, sub_role, status, created_at, updated_at
+
+=== tenants (8 rows) ===
+id, domain, name, database, phone, address, support_email, primary_color, secondary_color, logo, favicon, custom_css, features, status, amt_dealer_profit, amt_fdd_fee, perc_prepaid_fin_expense, perc_disc_cash_pay, perc_merchant_ac_fee, full_pay_ac_fee, full_pay_cc_fee, affiliate_fee_1, affiliate_fee_2, affiliate_fee_3, fee_deductible_100, dt_username, dt_password, dt_entrprise_code, dt_company_number, dt_server_name, century_code
+
+=== users (31 rows) ===
+id, email, email_verified_at, password, first_name, last_name, phone, role, status, remember_token, created_at, last_login, updated_at
+
+=== vehicle_lookup_api_responses (80416 rows) ===
+id, response, tenant_id, vin, created_at, updated_at
+
+=== vehicle_notes (0 rows) ===
+id, vehicle_id, notes, created_at, updated_at
+
+=== vehicles (73998 rows) ===
+id, tenant_id, customer_id, vin, year, make, model, trim, engine, vehicle_age_type, purchase_date, last_service_date, last_mileage, initial_warranty_miles, initial_warranty_months, warranty_start_date, four_wheel_drive, msrp, warranty_status, status, inspection_required, created_at, updated_at
+
+=== warranty_discounts (0 rows) ===
+id, discount_code_id, vehicle_id, tenant_id, ref_json, created_at, updated_at
+
+=== warranty_packages (4566 rows) ===
+id, package_code, name, description, duration_months, mileage_limit, deductible, base_price, is_selected, signature_id, signature_ip, signature_time, created_at, updated_at
+
+=== warranty_purchases (13 rows) ===
+id, user_id, vehicle_id, package_id, calculation_id, purchase_date, status, type, frequency, frequency_units, number_of_payments, reference_id, created_at, updated_at
+
+=== warrranty_steps (108 rows) ===
+id, vehicle_id, customer_id, user_id, step, submitted_information, created_at, updated_at
