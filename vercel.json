@@ -25,9 +25,8 @@
     }
   ],
   "rewrites": [
-    { "handle": "filesystem" },
     { "source": "/api/:path*", "destination": "/server.js" },
     { "source": "/health", "destination": "/server.js" },
-    { "source": "/(.*)", "destination": "/index.html" }
+    { "source": "/((?!assets/|api/).*)", "destination": "/index.html" }
   ]
 }
