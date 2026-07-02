@@ -24,6 +24,16 @@ const port = Number(process.env.PORT ?? 3001);
 app.use(cors());
 app.use(express.json());
 
+app.use((req, res, next) => {
+  if (req.path.startsWith("/api") || req.path === "/health") {
+    res.setHeader("Cache-Control", "no-store, no-cache, must-revalidate, private");
+    res.setHeader("CDN-Cache-Control", "no-store");
+    res.setHeader("Pragma", "no-cache");
+    res.setHeader("Expires", "0");
+  }
+  next();
+});
+
 app.get("/health", (_req, res) => {
   res.json({ status: "ok" });
 });
@@ -524,7 +534,11 @@ app.get("/api/deals/:id", async (req, res) => {
 
 app.use("/api/reports", reportsRouter);
 
-app.listen(port, () => {
-  console.log(`API listening on http://localhost:${port}`);
-  console.log("Report routes: /api/reports/fi-attach, /sales-team, /customers, /dealership-compare");
-});
+export default app;
+
+if (!process.env.VERCEL) {
+  app.listen(port, () => {
+    console.log(`API listening on http://localhost:${port}`);
+    console.log("Report routes: /api/reports/fi-attach, /sales-team, /customers, /dealership-compare");
+  });
+}

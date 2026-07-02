@@ -17,10 +17,6 @@ const apiBaseUrl = import.meta.env.VITE_API_URL?.replace(/\/$/, "") ?? "";
 const api = axios.create({ baseURL: apiBaseUrl });
 
 function apiUnavailableMessage() {
-  if (import.meta.env.PROD && !apiBaseUrl) {
-    return "API URL is not configured. Set VITE_API_URL in Vercel to your Express API host.";
-  }
-
   return "Could not reach the dashboard API. Verify the API server is running and accessible.";
 }
 
