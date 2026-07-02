@@ -3,7 +3,7 @@
   "buildCommand": "npm run build",
   "outputDirectory": "client/dist",
   "functions": {
-    "server.js": {
+    "api/index.js": {
       "maxDuration": 60
     }
   },
@@ -25,8 +25,8 @@
     }
   ],
   "rewrites": [
-    { "source": "/api/:path*", "destination": "/server.js" },
-    { "source": "/health", "destination": "/server.js" },
+    { "source": "/api/:path*", "destination": "/api/index" },
+    { "source": "/health", "destination": "/api/index" },
     { "source": "/((?!assets/|api/).*)", "destination": "/index.html" }
   ]
 }
