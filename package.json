@@ -5,15 +5,18 @@
   "type": "module",
   "scripts": {
     "db:test": "node scripts/test-db-connection.mjs",
+    "db:migrate-creds": "node scripts/migrate-dashboard-creds.mjs",
+    "db:create-user": "node scripts/create-dashboard-user.mjs",
     "dev:api": "node --watch server/index.js",
     "dev:client": "npm run dev --prefix client",
     "dev": "concurrently \"npm run dev:api\" \"npm run dev:client\"",
-    "build": "npm run build --prefix client"
+    "build": "npm install --prefix client --include=dev && npm run build --prefix client"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcryptjs": "^3.0.3",
     "cors": "^2.8.6",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",

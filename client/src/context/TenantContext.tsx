@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
 import { isDashboardTenant } from "../config/dashboard-tenants";
+import { fetchTenant } from "../lib/api";
 import type { Tenant } from "../types";
 
 const STORAGE_KEY = "fdd.selectedTenantId";
@@ -19,8 +20,7 @@ export function TenantProvider({ children }: { children: ReactNode }) {
     const stored = localStorage.getItem(STORAGE_KEY);
     if (!stored) return;
 
-    fetch(`/api/tenants/${stored}`)
-      .then((response) => (response.ok ? response.json() : null))
+    fetchTenant(Number(stored))
       .then((data) => {
         if (data && isDashboardTenant(data.id)) setTenant(data);
         else localStorage.removeItem(STORAGE_KEY);

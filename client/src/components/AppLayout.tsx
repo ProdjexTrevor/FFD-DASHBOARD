@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { NavLink, Outlet } from "react-router-dom";
 import { applyTenantTheme, useTenant } from "../context/TenantContext";
+import { useAuth } from "../context/AuthContext";
 import { useDateFilter } from "../context/DateFilterContext";
 import { DateFilterBar } from "./DateFilterBar";
 
@@ -14,6 +15,7 @@ const NAV_ITEMS = [
 
 export function AppLayout() {
   const { tenant, clearTenant } = useTenant();
+  const { user, logout } = useAuth();
   const { filter, setFilter } = useDateFilter();
 
   useEffect(() => {
@@ -53,6 +55,12 @@ export function AppLayout() {
         <button type="button" className="switch-tenant-btn sidebar-switch" onClick={clearTenant}>
           Switch dealership
         </button>
+        <div className="sidebar-user">
+          <span>{user?.displayName ?? user?.username}</span>
+          <button type="button" className="switch-tenant-btn sidebar-signout" onClick={logout}>
+            Sign out
+          </button>
+        </div>
       </aside>
 
       <div className="app-main">

@@ -1,4 +1,5 @@
 import axios from "axios";
+import { clearStoredAuth, getAuthHeader } from "./auth";
 import type {
   CustomersReport,
   DashboardSummary,
@@ -12,6 +13,29 @@ import type {
 import type { DateRange } from "./dateFilter";
 
 const api = axios.create({ baseURL: "" });
+
+api.interceptors.request.use((config) => {
+  const authHeader = getAuthHeader();
+  if (authHeader) {
+    config.headers.Authorization = authHeader;
+  }
+  return config;
+});
+
+api.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response?.status === 401) {
+      clearStoredAuth();
+    }
+    return Promise.reject(error);
+  }
+);
+
+export async function fetchWhoami() {
+  const { data } = await api.get<{ username: string; displayName: string }>("/api/auth/whoami");
+  return data;
+}
 
 function withDateParams(params: Record<string, unknown>, dateRange?: DateRange) {
   return {

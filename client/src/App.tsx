@@ -1,6 +1,8 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { AppLayout } from "./components/AppLayout";
+import { LoginScreen } from "./components/LoginScreen";
 import { TenantPicker } from "./components/TenantPicker";
+import { AuthProvider, useAuth } from "./context/AuthContext";
 import { DateFilterProvider } from "./context/DateFilterContext";
 import { TenantProvider, useTenant } from "./context/TenantContext";
 import { CustomersPage } from "./pages/CustomersPage";
@@ -10,7 +12,7 @@ import { OverviewPage } from "./pages/OverviewPage";
 import { SalesTeamPage } from "./pages/SalesTeamPage";
 import "./App.css";
 
-function AppRoutes() {
+function DashboardRoutes() {
   const { tenant } = useTenant();
 
   if (!tenant) {
@@ -33,13 +35,31 @@ function AppRoutes() {
   );
 }
 
-function App() {
+function AppRoutes() {
+  const { user, loading } = useAuth();
+
+  if (loading) {
+    return <div className="loading">Checking sign in...</div>;
+  }
+
+  if (!user) {
+    return <LoginScreen />;
+  }
+
   return (
     <TenantProvider>
+      <DashboardRoutes />
+    </TenantProvider>
+  );
+}
+
+function App() {
+  return (
+    <AuthProvider>
       <BrowserRouter>
         <AppRoutes />
       </BrowserRouter>
-    </TenantProvider>
+    </AuthProvider>
   );
 }
 

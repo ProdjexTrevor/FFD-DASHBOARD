@@ -1,0 +1,6 @@
+{
+  "installCommand": "npm install && npm install --prefix client --include=dev",
+  "buildCommand": "npm run build",
+  "outputDirectory": "client/dist",
+  "rewrites": [{ "source": "/((?!assets/).*)", "destination": "/index.html" }]
+}

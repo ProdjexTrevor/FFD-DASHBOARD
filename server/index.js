@@ -16,12 +16,26 @@ import {
 } from "./lib/dealQueries.js";
 import reportsRouter from "./routes/reports.js";
 import { applyTenantDisplayName, filterDashboardTenants } from "../config/dashboard-tenants.js";
+import { dashboardBasicAuth } from "./middleware/basicAuth.js";
 
 const app = express();
 const port = Number(process.env.PORT ?? 3001);
 
 app.use(cors());
 app.use(express.json());
+
+app.get("/health", (_req, res) => {
+  res.json({ status: "ok" });
+});
+
+app.use("/api", dashboardBasicAuth);
+
+app.get("/api/auth/whoami", (req, res) => {
+  res.json({
+    username: req.dashboardUser.username,
+    displayName: req.dashboardUser.display_name ?? req.dashboardUser.username,
+  });
+});
 
 function sendError(res, error) {
   res.status(error.statusCode ?? 500).json({ error: error.message });
@@ -41,10 +55,6 @@ const tenantSelectFields = `
   t.dt_company_number,
   t.dt_entrprise_code
 `;
-
-app.get("/health", (_req, res) => {
-  res.json({ status: "ok" });
-});
 
 app.get("/api/tenants", async (_req, res) => {
   try {
