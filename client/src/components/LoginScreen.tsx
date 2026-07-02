@@ -1,4 +1,5 @@
 import { useState, type FormEvent } from "react";
+import axios from "axios";
 import { useAuth } from "../context/AuthContext";
 
 export function LoginScreen() {
@@ -15,8 +16,18 @@ export function LoginScreen() {
 
     try {
       await login(username.trim(), password);
-    } catch {
-      setError("Invalid username or password.");
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        if (error.response?.status === 503) {
+          setError("The dashboard API cannot reach the database. It must run on the Prodjex server.");
+        } else if (error.response?.status === 401) {
+          setError("Invalid username or password.");
+        } else {
+          setError("Could not sign in. Check your connection and try again.");
+        }
+      } else {
+        setError("Could not sign in. Check your connection and try again.");
+      }
     } finally {
       setSubmitting(false);
     }

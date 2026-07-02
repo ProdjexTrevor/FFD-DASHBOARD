@@ -51,6 +51,7 @@ export async function dashboardBasicAuth(req, res, next) {
     };
     return next();
   } catch (error) {
-    return next(error);
+    console.error("Dashboard auth database error:", error);
+    return res.status(503).json({ error: "Authentication service unavailable" });
   }
 }

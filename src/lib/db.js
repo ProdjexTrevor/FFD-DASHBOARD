@@ -2,7 +2,34 @@ import mysql from "mysql2/promise";
 
 let pool;
 
+function parseDatabaseUrl(url) {
+  if (!url) return null;
+
+  try {
+    const parsed = new URL(url);
+    return {
+      host: parsed.hostname,
+      port: Number(parsed.port || 3306),
+      user: decodeURIComponent(parsed.username),
+      password: decodeURIComponent(parsed.password),
+      database: parsed.pathname.replace(/^\//, ""),
+    };
+  } catch {
+    return null;
+  }
+}
+
 export function getDbConfig() {
+  const fromUrl = parseDatabaseUrl(process.env.DATABASE_URL);
+  if (fromUrl) {
+    return {
+      ...fromUrl,
+      waitForConnections: true,
+      connectionLimit: 10,
+      connectTimeout: 15000,
+    };
+  }
+
   return {
     host: process.env.DB_HOST ?? "host07.prodjex.com",
     port: Number(process.env.DB_PORT ?? 3306),

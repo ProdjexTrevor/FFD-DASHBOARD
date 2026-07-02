@@ -21,6 +21,10 @@ import { dashboardBasicAuth } from "./middleware/basicAuth.js";
 const app = express();
 const port = Number(process.env.PORT ?? 3001);
 
+if (process.env.NODE_ENV === "production") {
+  app.set("trust proxy", 1);
+}
+
 app.use(cors());
 app.use(express.json());
 
@@ -36,6 +40,21 @@ app.use((req, res, next) => {
 
 app.get("/health", (_req, res) => {
   res.json({ status: "ok" });
+});
+
+app.get("/health/db", async (_req, res) => {
+  try {
+    await query("SELECT 1 AS ok");
+    res.json({
+      status: "ok",
+      database: process.env.DB_NAME ?? "firstdealer_app",
+    });
+  } catch (error) {
+    res.status(503).json({
+      status: "error",
+      error: error.message,
+    });
+  }
 });
 
 app.use("/api", dashboardBasicAuth);
@@ -534,10 +553,25 @@ app.get("/api/deals/:id", async (req, res) => {
 
 app.use("/api/reports", reportsRouter);
 
+app.use((error, req, res, next) => {
+  console.error(error);
+  if (res.headersSent) {
+    return next(error);
+  }
+
+  if (req.path.startsWith("/api") || req.path.startsWith("/health")) {
+    return res.status(error.statusCode ?? 500).json({
+      error: error.message ?? "Internal Server Error",
+    });
+  }
+
+  return res.status(500).send("Internal Server Error");
+});
+
 export default app;
 
 if (!process.env.VERCEL) {
-  app.listen(port, () => {
+  app.listen(port, "0.0.0.0", () => {
     console.log(`API listening on http://localhost:${port}`);
     console.log("Report routes: /api/reports/fi-attach, /sales-team, /customers, /dealership-compare");
   });
