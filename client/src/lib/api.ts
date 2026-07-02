@@ -12,7 +12,39 @@ import type {
 } from "../types";
 import type { DateRange } from "./dateFilter";
 
-const api = axios.create({ baseURL: "" });
+const apiBaseUrl = import.meta.env.VITE_API_URL?.replace(/\/$/, "") ?? "";
+
+const api = axios.create({ baseURL: apiBaseUrl });
+
+function apiUnavailableMessage() {
+  if (import.meta.env.PROD && !apiBaseUrl) {
+    return "API URL is not configured. Set VITE_API_URL in Vercel to your Express API host.";
+  }
+
+  return "Could not reach the dashboard API. Verify the API server is running and accessible.";
+}
+
+function assertArrayResponse<T>(data: unknown): T[] {
+  if (!Array.isArray(data)) {
+    throw new Error(apiUnavailableMessage());
+  }
+
+  return data;
+}
+
+function assertObjectResponse<T extends Record<string, unknown>>(data: unknown, keys: string[]): T {
+  if (!data || typeof data !== "object" || Array.isArray(data)) {
+    throw new Error(apiUnavailableMessage());
+  }
+
+  for (const key of keys) {
+    if (!(key in data)) {
+      throw new Error(apiUnavailableMessage());
+    }
+  }
+
+  return data as T;
+}
 
 api.interceptors.request.use((config) => {
   const authHeader = getAuthHeader();
@@ -33,8 +65,8 @@ api.interceptors.response.use(
 );
 
 export async function fetchWhoami() {
-  const { data } = await api.get<{ username: string; displayName: string }>("/api/auth/whoami");
-  return data;
+  const { data } = await api.get("/api/auth/whoami");
+  return assertObjectResponse<{ username: string; displayName: string }>(data, ["username"]);
 }
 
 function withDateParams(params: Record<string, unknown>, dateRange?: DateRange) {
@@ -46,8 +78,8 @@ function withDateParams(params: Record<string, unknown>, dateRange?: DateRange) 
 }
 
 export async function fetchTenants() {
-  const { data } = await api.get<Tenant[]>("/api/tenants");
-  return data;
+  const { data } = await api.get("/api/tenants");
+  return assertArrayResponse<Tenant>(data);
 }
 
 export async function fetchTenant(tenantId: number) {

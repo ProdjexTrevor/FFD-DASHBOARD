@@ -21,7 +21,9 @@ export function TenantPicker() {
 
   useEffect(() => {
     fetchTenants()
-      .then((data) => setTenants(data.filter((tenant) => tenant.status === "active" && isDashboardTenant(tenant.id))))
+      .then((data) => {
+        setTenants(data.filter((tenant) => tenant.status === "active" && isDashboardTenant(tenant.id)));
+      })
       .catch((err) => setError(err.message))
       .finally(() => setLoading(false));
   }, []);
