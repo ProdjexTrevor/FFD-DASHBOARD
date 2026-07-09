@@ -102,6 +102,14 @@
   gap: 20px;
 }
 
+.page-title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
 .page-title-row h1 {
   margin: 0;
   font-size: 1.75rem;
@@ -649,6 +657,46 @@ th {
 .error-banner {
   background: #fef2f2;
   color: #b91c1c;
+}
+
+.report-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.report-export-btn {
+  border: 1px solid #cbd5e1;
+  background: #fff;
+  color: #0f172a;
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.report-export-btn:hover {
+  background: #f8fafc;
+}
+
+.report-table-wrap {
+  max-height: 70vh;
+}
+
+.report-table {
+  min-width: 2200px;
+  font-size: 0.75rem;
+}
+
+.report-table th,
+.report-table td {
+  white-space: nowrap;
+}
+
+.report-table tfoot td {
+  font-weight: 700;
+  background: #f8fafc;
 }
 
 @media (max-width: 768px) {

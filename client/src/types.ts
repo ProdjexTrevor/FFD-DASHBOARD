@@ -160,3 +160,67 @@ export interface DealershipCompareRow {
   unique_customers: number;
   attach_rate: number;
 }
+
+export interface VscReinsuranceRow {
+  fdd_dealer_number: string;
+  fdd_contract_number: string;
+  customer_first_name: string;
+  customer_last_name: string;
+  customer_name: string;
+  make: string;
+  model: string;
+  year: string;
+  vin: string;
+  odometer_on_sale: number;
+  new_used: string;
+  term_months: number | null;
+  coverage: string;
+  mileage_selected: number;
+  deductible_tier: string;
+  deductible_amount: number;
+  effective_sale_date: string;
+  deal_date: string;
+  contract_name: string;
+  agreement_price: number;
+  total_fees_all_adds: number;
+  amount_paid_to_administrator: number;
+  estimated_admin_fees: number;
+  amount_ceded_to_reins: number;
+  term_years: number;
+  interest_income: number;
+  reins_profit_share: number;
+  total_reins_projected: number;
+  dealer_vsc_profit: number;
+  projected_income: number;
+  pricing_source: "package_calculations" | "estimated";
+}
+
+export interface VscReinsuranceReport {
+  tenantId: number;
+  dealershipName: string | null;
+  fddDealerNumber: string | null;
+  reportNumber: number;
+  period: {
+    startDate: string | null;
+    endDate: string | null;
+  };
+  constants: {
+    admin_fee_estimate: number;
+    reins_interest_rate: number;
+    reins_profit_pct: number;
+  };
+  summary: {
+    total_contracts: number;
+    total_agreement_price: number;
+    total_fees_all_adds: number;
+    total_amount_paid_to_administrator: number;
+    total_amount_ceded_to_reins: number;
+    total_interest_income: number;
+    total_reins_projected: number;
+    total_dealer_vsc_profit: number;
+    total_projected_income: number;
+    priced_from_packages: number;
+    priced_estimated: number;
+  };
+  rows: VscReinsuranceRow[];
+}

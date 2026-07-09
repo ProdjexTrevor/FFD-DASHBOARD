@@ -10,6 +10,7 @@ const NAV_ITEMS = [
   { to: "/fi-attach", label: "F&I Attach" },
   { to: "/sales-team", label: "Sales Team" },
   { to: "/customers", label: "Customers" },
+  { to: "/vsc-sales", label: "VSC Sales" },
   { to: "/dealerships", label: "Compare" },
 ];
 

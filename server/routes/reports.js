@@ -7,6 +7,7 @@ import {
   dateFilterClause,
   requireTenantId,
 } from "../lib/dealQueries.js";
+import { buildVscReinsuranceReport } from "../lib/vscReinsuranceReport.js";
 
 const router = Router();
 
@@ -367,6 +368,32 @@ router.get("/dealership-compare", async (req, res) => {
 
     rows.sort((a, b) => b.total_deals - a.total_deals);
     res.json(rows);
+  } catch (error) {
+    sendError(res, error);
+  }
+});
+
+router.get("/vsc-sales-reinsurance", async (req, res) => {
+  try {
+    const tenantId = requireTenantId(req.query.tenantId);
+    const [tenant] = await query(
+      `
+      SELECT id, name, dt_company_number
+      FROM tenants
+      WHERE id = ?
+      LIMIT 1
+    `,
+      [tenantId]
+    );
+
+    const report = await buildVscReinsuranceReport(
+      tenantId,
+      req.query.startDate,
+      req.query.endDate,
+      tenant ?? {}
+    );
+
+    res.json(report);
   } catch (error) {
     sendError(res, error);
   }

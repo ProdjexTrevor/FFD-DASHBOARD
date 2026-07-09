@@ -9,6 +9,7 @@ import type {
   MonthlyTrend,
   SalesTeamReport,
   Tenant,
+  VscReinsuranceReport,
 } from "../types";
 import type { DateRange } from "./dateFilter";
 
@@ -138,6 +139,13 @@ export async function fetchCustomersReport(tenantId: number, dateRange?: DateRan
 export async function fetchDealershipCompareReport(dateRange?: DateRange) {
   const { data } = await api.get<DealershipCompareRow[]>("/api/reports/dealership-compare", {
     params: withDateParams({}, dateRange),
+  });
+  return data;
+}
+
+export async function fetchVscReinsuranceReport(tenantId: number, dateRange?: DateRange) {
+  const { data } = await api.get<VscReinsuranceReport>("/api/reports/vsc-sales-reinsurance", {
+    params: withDateParams({ tenantId }, dateRange),
   });
   return data;
 }
