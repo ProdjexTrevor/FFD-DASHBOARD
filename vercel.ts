@@ -17,23 +17,5 @@ export const config = {
   installCommand: "npm install && npm install --include=dev --prefix client",
   buildCommand: "npm run build",
   outputDirectory: "client/dist",
-  headers: [
-    {
-      source: "/api/(.*)",
-      headers: [
-        { key: "Cache-Control", value: "no-store, no-cache, must-revalidate, private" },
-        { key: "CDN-Cache-Control", value: "no-store" },
-        { key: "Pragma", value: "no-cache" },
-      ],
-    },
-    {
-      source: "/health",
-      headers: [
-        { key: "Cache-Control", value: "no-store, no-cache, must-revalidate, private" },
-        { key: "CDN-Cache-Control", value: "no-store" },
-        { key: "Pragma", value: "no-cache" },
-      ],
-    },
-  ],
   rewrites,
 };
