@@ -568,8 +568,6 @@ app.use((error, req, res, next) => {
   return res.status(500).send("Internal Server Error");
 });
 
-export default app;
-
 if (!process.env.VERCEL) {
   app.listen(port, "0.0.0.0", () => {
     console.log(`API listening on http://localhost:${port}`);

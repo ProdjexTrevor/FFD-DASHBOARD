@@ -18,10 +18,18 @@ export function LoginScreen() {
       await login(username.trim(), password);
     } catch (error) {
       if (axios.isAxiosError(error)) {
+        const apiError = error.response?.data as { error?: string; code?: string } | undefined;
         if (error.response?.status === 503) {
-          setError("The dashboard API cannot reach the database. It must run on the Prodjex server.");
+          setError(
+            apiError?.error ??
+              "The dashboard API is not available. The API must run on the Prodjex server near the database."
+          );
         } else if (error.response?.status === 401) {
           setError("Invalid username or password.");
+        } else if (error.response?.status === 500) {
+          setError("The API could not reach the database. Deploy the API on host07 and set API_PROXY_URL in Vercel.");
+        } else if (error.code === "ERR_NETWORK") {
+          setError("Could not reach the dashboard API. Check API_PROXY_URL in Vercel.");
         } else {
           setError("Could not sign in. Check your connection and try again.");
         }
