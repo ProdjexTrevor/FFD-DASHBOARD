@@ -26,7 +26,7 @@ export function getDbConfig() {
       ...fromUrl,
       waitForConnections: true,
       connectionLimit: 10,
-      connectTimeout: process.env.VERCEL ? 5000 : 15000,
+      connectTimeout: process.env.VERCEL ? 10000 : 15000,
     };
   }
 
@@ -38,7 +38,7 @@ export function getDbConfig() {
     database: process.env.DB_NAME ?? "firstdealer_app",
     waitForConnections: true,
     connectionLimit: 10,
-    connectTimeout: process.env.VERCEL ? 5000 : 15000,
+    connectTimeout: process.env.VERCEL ? 10000 : 15000,
   };
 }
 
