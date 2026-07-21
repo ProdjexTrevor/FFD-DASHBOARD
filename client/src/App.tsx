@@ -10,6 +10,7 @@ import { DealershipComparePage } from "./pages/DealershipComparePage";
 import { FiAttachPage } from "./pages/FiAttachPage";
 import { OverviewPage } from "./pages/OverviewPage";
 import { SalesTeamPage } from "./pages/SalesTeamPage";
+import { ServicePage } from "./pages/ServicePage";
 import { VscSalesReinsurancePage } from "./pages/VscSalesReinsurancePage";
 import "./App.css";
 
@@ -28,6 +29,7 @@ function DashboardRoutes() {
           <Route path="fi-attach" element={<FiAttachPage />} />
           <Route path="sales-team" element={<SalesTeamPage />} />
           <Route path="customers" element={<CustomersPage />} />
+          <Route path="service" element={<ServicePage />} />
           <Route path="vsc-sales" element={<VscSalesReinsurancePage />} />
           <Route path="dealerships" element={<DealershipComparePage />} />
           <Route path="*" element={<Navigate to="/" replace />} />

@@ -17,6 +17,7 @@ import {
 import reportsRouter from "./routes/reports.js";
 import { applyTenantDisplayName, filterDashboardTenants } from "../config/dashboard-tenants.js";
 import { dashboardBasicAuth } from "./middleware/basicAuth.js";
+import { decodeVin } from "./lib/vinDecoder.js";
 
 const app = express();
 const port = Number(process.env.PORT ?? 3001);
@@ -64,6 +65,17 @@ app.get("/api/auth/whoami", (req, res) => {
     username: req.dashboardUser.username,
     displayName: req.dashboardUser.display_name ?? req.dashboardUser.username,
   });
+});
+
+app.get("/api/vin/:vin", async (req, res) => {
+  try {
+    const result = await decodeVin(req.params.vin, {
+      refresh: req.query.refresh === "true",
+    });
+    res.json(result);
+  } catch (error) {
+    sendError(res, error);
+  }
 });
 
 function sendError(res, error) {

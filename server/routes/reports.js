@@ -399,4 +399,240 @@ router.get("/vsc-sales-reinsurance", async (req, res) => {
   }
 });
 
+router.get("/service", async (req, res) => {
+  try {
+    const tenantId = requireTenantId(req.query.tenantId);
+    const date = dateFilterClause(req.query.startDate, req.query.endDate, "appointment_date_time", "a");
+    const whereClause = `a.tenant_id = ?${date.clause}`;
+    const params = [tenantId, ...date.params];
+
+    const [summary] = await query(
+      `
+      SELECT
+        COUNT(DISTINCT a.id) AS appointment_count,
+        COUNT(ad.id) AS detail_line_count,
+        COUNT(DISTINCT NULLIF(ad.vin, '')) AS unique_vins,
+        COALESCE(SUM(a.total_estimate), 0) AS total_estimate,
+        COALESCE(SUM(ad.actual_retail_amount), 0) AS total_retail,
+        COALESCE(SUM(ad.labor_hours), 0) AS total_labor_hours,
+        COALESCE(AVG(NULLIF(a.odometer_in, 0)), 0) AS avg_odometer_in
+      FROM appointments a
+      LEFT JOIN appointment_details ad ON ad.appointment_id = a.id
+      WHERE ${whereClause}
+    `,
+      params
+    );
+
+    const byStatus = await query(
+      `
+      SELECT
+        COALESCE(NULLIF(a.ro_status, ''), 'Unknown') AS status,
+        COUNT(*) AS count
+      FROM appointments a
+      WHERE ${whereClause}
+      GROUP BY status
+      ORDER BY count DESC
+    `,
+      params
+    );
+
+    const byServiceType = await query(
+      `
+      SELECT
+        COALESCE(NULLIF(ad.service_type, ''), 'Unknown') AS service_type,
+        COUNT(*) AS count,
+        COALESCE(SUM(ad.actual_retail_amount), 0) AS retail_total
+      FROM appointments a
+      INNER JOIN appointment_details ad ON ad.appointment_id = a.id
+      WHERE ${whereClause}
+      GROUP BY service_type
+      ORDER BY count DESC
+      LIMIT 12
+    `,
+      params
+    );
+
+    const appointments = await query(
+      `
+      SELECT
+        a.id,
+        a.appointment_number,
+        a.appointment_id AS dealertrack_appointment_id,
+        a.appointment_date_time,
+        a.open_transaction_date,
+        a.service_writer_id,
+        a.franchise_code,
+        a.total_estimate,
+        a.ro_status,
+        a.customer_key,
+        a.stock_number,
+        a.odometer_in,
+        c.name AS customer_name,
+        c.phone AS customer_phone,
+        COUNT(ad.id) AS line_count,
+        COUNT(DISTINCT NULLIF(ad.vin, '')) AS vin_count,
+        MAX(ad.vin) AS sample_vin,
+        COALESCE(SUM(ad.actual_retail_amount), 0) AS retail_total,
+        COALESCE(SUM(ad.labor_hours), 0) AS labor_hours
+      FROM appointments a
+      LEFT JOIN appointment_details ad ON ad.appointment_id = a.id
+      LEFT JOIN customers c
+        ON c.tenant_id = a.tenant_id
+       AND c.customer_number = a.customer_key
+      WHERE ${whereClause}
+      GROUP BY a.id
+      ORDER BY a.appointment_date_time DESC, a.id DESC
+      LIMIT 200
+    `,
+      params
+    );
+
+    res.json({
+      tenantId,
+      summary: {
+        appointment_count: Number(summary.appointment_count ?? 0),
+        detail_line_count: Number(summary.detail_line_count ?? 0),
+        unique_vins: Number(summary.unique_vins ?? 0),
+        total_estimate: Number(summary.total_estimate ?? 0),
+        total_retail: Number(summary.total_retail ?? 0),
+        total_labor_hours: Number(summary.total_labor_hours ?? 0),
+        avg_odometer_in: Number(Number(summary.avg_odometer_in ?? 0).toFixed(0)),
+      },
+      byStatus: byStatus.map((row) => ({
+        name: row.status,
+        count: Number(row.count),
+      })),
+      byServiceType: byServiceType.map((row) => ({
+        name: row.service_type,
+        count: Number(row.count),
+        retail_total: Number(row.retail_total),
+      })),
+      appointments: appointments.map((row) => ({
+        id: row.id,
+        appointment_number: row.appointment_number,
+        dealertrack_appointment_id: row.dealertrack_appointment_id,
+        appointment_date_time: row.appointment_date_time,
+        open_transaction_date: row.open_transaction_date,
+        service_writer_id: row.service_writer_id,
+        franchise_code: row.franchise_code,
+        total_estimate: Number(row.total_estimate ?? 0),
+        ro_status: row.ro_status,
+        customer_key: row.customer_key,
+        customer_name: row.customer_name,
+        customer_phone: row.customer_phone,
+        stock_number: row.stock_number,
+        odometer_in: Number(row.odometer_in ?? 0),
+        line_count: Number(row.line_count ?? 0),
+        vin_count: Number(row.vin_count ?? 0),
+        sample_vin: row.sample_vin,
+        retail_total: Number(row.retail_total ?? 0),
+        labor_hours: Number(row.labor_hours ?? 0),
+      })),
+    });
+  } catch (error) {
+    sendError(res, error);
+  }
+});
+
+router.get("/service/details", async (req, res) => {
+  try {
+    const tenantId = requireTenantId(req.query.tenantId);
+    const appointmentId = Number(req.query.appointmentId);
+    if (!appointmentId || Number.isNaN(appointmentId)) {
+      const error = new Error("appointmentId is required");
+      error.statusCode = 400;
+      throw error;
+    }
+
+    const [appointment] = await query(
+      `
+      SELECT id, appointment_number, appointment_date_time, customer_key, odometer_in, ro_status
+      FROM appointments
+      WHERE id = ? AND tenant_id = ?
+      LIMIT 1
+    `,
+      [appointmentId, tenantId]
+    );
+
+    if (!appointment) {
+      const error = new Error("Appointment not found for this dealership");
+      error.statusCode = 404;
+      throw error;
+    }
+
+    const details = await query(
+      `
+      SELECT
+        ad.id,
+        ad.appointment_id,
+        ad.vin,
+        ad.service_line_number,
+        ad.line_type,
+        ad.sequence_number,
+        ad.trans_date,
+        ad.comments,
+        ad.service_type,
+        ad.line_payment_method,
+        ad.technician_id,
+        ad.labor_op_code,
+        ad.labor_hours,
+        ad.labor_cost_hours,
+        ad.actual_retail_amount,
+        ad.part_number,
+        ad.counter_person_id,
+        ad.stock_group,
+        ad.manufacturer,
+        ad.quantity,
+        ad.cost,
+        ad.list_price,
+        ad.net_price,
+        ad.trade_price
+      FROM appointment_details ad
+      WHERE ad.appointment_id = ?
+      ORDER BY ad.service_line_number ASC, ad.id ASC
+    `,
+      [appointmentId]
+    );
+
+    res.json({
+      appointment: {
+        id: appointment.id,
+        appointment_number: appointment.appointment_number,
+        appointment_date_time: appointment.appointment_date_time,
+        customer_key: appointment.customer_key,
+        odometer_in: Number(appointment.odometer_in ?? 0),
+        ro_status: appointment.ro_status,
+      },
+      details: details.map((row) => ({
+        id: row.id,
+        appointment_id: row.appointment_id,
+        vin: row.vin,
+        service_line_number: row.service_line_number,
+        line_type: row.line_type,
+        sequence_number: row.sequence_number,
+        trans_date: row.trans_date,
+        comments: row.comments,
+        service_type: row.service_type,
+        line_payment_method: row.line_payment_method,
+        technician_id: row.technician_id,
+        labor_op_code: row.labor_op_code,
+        labor_hours: Number(row.labor_hours ?? 0),
+        labor_cost_hours: Number(row.labor_cost_hours ?? 0),
+        actual_retail_amount: Number(row.actual_retail_amount ?? 0),
+        part_number: row.part_number,
+        counter_person_id: row.counter_person_id,
+        stock_group: row.stock_group,
+        manufacturer: row.manufacturer,
+        quantity: Number(row.quantity ?? 0),
+        cost: Number(row.cost ?? 0),
+        list_price: Number(row.list_price ?? 0),
+        net_price: Number(row.net_price ?? 0),
+        trade_price: Number(row.trade_price ?? 0),
+      })),
+    });
+  } catch (error) {
+    sendError(res, error);
+  }
+});
+
 export default router;

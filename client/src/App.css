@@ -699,6 +699,29 @@ th {
   background: #f8fafc;
 }
 
+.table-hint {
+  margin: 0 0 12px;
+  color: #64748b;
+  font-size: 0.875rem;
+}
+
+.table-row-clickable {
+  cursor: pointer;
+}
+
+.table-row-clickable:hover {
+  background: #f8fafc;
+}
+
+.table-row-selected {
+  cursor: pointer;
+  background: #eff6ff;
+}
+
+.table-row-selected:hover {
+  background: #dbeafe;
+}
+
 @media (max-width: 768px) {
   .app,
   .app-main {

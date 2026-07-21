@@ -224,3 +224,80 @@ export interface VscReinsuranceReport {
   };
   rows: VscReinsuranceRow[];
 }
+
+export interface ServiceAppointmentRow {
+  id: number;
+  appointment_number: string | null;
+  dealertrack_appointment_id: string | null;
+  appointment_date_time: string | null;
+  open_transaction_date: string | null;
+  service_writer_id: string | null;
+  franchise_code: string | null;
+  total_estimate: number;
+  ro_status: string | null;
+  customer_key: string | null;
+  customer_name: string | null;
+  customer_phone: string | null;
+  stock_number: string | null;
+  odometer_in: number;
+  line_count: number;
+  vin_count: number;
+  sample_vin: string | null;
+  retail_total: number;
+  labor_hours: number;
+}
+
+export interface ServiceDetailRow {
+  id: number;
+  appointment_id: number;
+  vin: string | null;
+  service_line_number: number | null;
+  line_type: string | null;
+  sequence_number: number | null;
+  trans_date: string | null;
+  comments: string | null;
+  service_type: string | null;
+  line_payment_method: string | null;
+  technician_id: string | null;
+  labor_op_code: string | null;
+  labor_hours: number;
+  labor_cost_hours: number;
+  actual_retail_amount: number;
+  part_number: string | null;
+  counter_person_id: string | null;
+  stock_group: string | null;
+  manufacturer: string | null;
+  quantity: number;
+  cost: number;
+  list_price: number;
+  net_price: number;
+  trade_price: number;
+}
+
+export interface ServiceReport {
+  tenantId: number;
+  summary: {
+    appointment_count: number;
+    detail_line_count: number;
+    unique_vins: number;
+    total_estimate: number;
+    total_retail: number;
+    total_labor_hours: number;
+    avg_odometer_in: number;
+  };
+  byStatus: NamedCount[];
+  byServiceType: Array<NamedCount & { retail_total: number }>;
+  appointments: ServiceAppointmentRow[];
+}
+
+export interface ServiceDetailsResponse {
+  appointment: {
+    id: number;
+    appointment_number: string | null;
+    appointment_date_time: string | null;
+    customer_key: string | null;
+    odometer_in: number;
+    ro_status: string | null;
+  };
+  details: ServiceDetailRow[];
+}

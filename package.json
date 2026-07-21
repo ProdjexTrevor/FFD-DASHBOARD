@@ -6,6 +6,7 @@
   "scripts": {
     "db:test": "node scripts/test-db-connection.mjs",
     "db:migrate-creds": "node scripts/migrate-dashboard-creds.mjs",
+    "db:migrate-vin-decodes": "node scripts/migrate-vin-decodes.mjs",
     "db:create-user": "node scripts/create-dashboard-user.mjs",
     "dev:api": "node --watch server/index.js",
     "dev:client": "npm run dev --prefix client",

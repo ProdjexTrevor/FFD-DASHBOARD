@@ -1,0 +1,22 @@
+{
+  "name": "vin-decode-api",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Standalone VIN decode API for Ford, Honda, and Subaru (NHTSA vPIC + optional MariaDB cache)",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js",
+    "db:migrate": "node scripts/migrate.mjs",
+    "db:test": "node scripts/test-db.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "mysql2": "^3.22.5"
+  }
+}

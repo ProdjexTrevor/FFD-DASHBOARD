@@ -10,6 +10,8 @@ import type {
   SalesTeamReport,
   Tenant,
   VscReinsuranceReport,
+  ServiceReport,
+  ServiceDetailsResponse,
 } from "../types";
 import type { DateRange } from "./dateFilter";
 
@@ -146,6 +148,20 @@ export async function fetchDealershipCompareReport(dateRange?: DateRange) {
 export async function fetchVscReinsuranceReport(tenantId: number, dateRange?: DateRange) {
   const { data } = await api.get<VscReinsuranceReport>("/api/reports/vsc-sales-reinsurance", {
     params: withDateParams({ tenantId }, dateRange),
+  });
+  return data;
+}
+
+export async function fetchServiceReport(tenantId: number, dateRange?: DateRange) {
+  const { data } = await api.get<ServiceReport>("/api/reports/service", {
+    params: withDateParams({ tenantId }, dateRange),
+  });
+  return data;
+}
+
+export async function fetchServiceDetails(tenantId: number, appointmentId: number) {
+  const { data } = await api.get<ServiceDetailsResponse>("/api/reports/service/details", {
+    params: { tenantId, appointmentId },
   });
   return data;
 }
